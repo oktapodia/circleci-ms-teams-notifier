@@ -4,10 +4,19 @@ orbs:
   # Replace this with your own!
   ms-teams-notifier: oktapodia/ms-teams-notifier@dev:a996bce
 
+jobs:
+  # Define one or more jobs which will utilize your orb's commands and parameters to validate your changes.
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - ms-teams-notifier/report:
+          webhook_url: $MS_TEAMS_WEBHOOK_URL
+
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
   test:
     jobs:
-      - ms-teams-notifier/report:
-          webhook_url: $MS_TEAMS_WEBHOOK_URL
+      - test
