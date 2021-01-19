@@ -1,0 +1,14 @@
+description: Report the status of a job to MS Teams
+usage:
+  version: 2.1
+  orbs:
+    ms-teams: oktapodia/ms-teams-notifier@1.0.0
+  jobs:
+    build:
+      executor: docker
+      steps:
+        - checkout
+        - run: command/to/run/your/tests
+        - ms-teams-notifier/report:
+            only_on_fail: true
+            webhook_url: $MS_TEAMS_WEBHOOK_URL
